@@ -1,8 +1,13 @@
 const questions = [
 	{
-		question: "О ёпти, ты кто?",
-		answers: ["Люся", "Петя", "Юрий", "Хрен в пальто"],
-		correct: 4,
+		question: "Как называется самое глубокое место на Земле?",
+		answers: [
+			"Бермудский треугольник",
+			"Марианская впадина",
+			"Мертвое море",
+			"Тихоокеанский желоб"
+		],
+		correct: 2,
 	},
 	{
 		question: "Кто такой кукусик?",
@@ -15,19 +20,19 @@ const questions = [
 		correct: 2,
 	},
 	{
-		question: "Что делать дальше?",
+		question: "Как называется художественный стиль, связанный с Сальвадором Дали?",
 		answers: [
-			"Выбрать вариант ответа",
-			"Идти на хер",
-			"Хорошенько подумать",
-			"А я, то откуда знаю",
+			"Кубизм",
+			"Реализм",
+			"Сюрреализм",
+			"Абстракционизм",
 		],
-		correct: 1,
+		correct: 3,
 	},
 	{
-		question: "Ну чё бля, понравилось?",
-		answers: ["Да ты ахуел", "Да сэр", "Ну не знаю", "Круууто"],
-		correct: 2,
+		question: "Какая планета в Солнечной системе самая большая?",
+		answers: ["Земля", "Венера", "Юпитер", "Сатурн"],
+		correct: 3,
 	},
 ];
 
@@ -47,7 +52,7 @@ submitBtn.onclick = checkAnswer;
 function clearPage() {
 	headerContainer.innerHTML = '';
 	listContainer.innerHTML = '';
-} 
+}
 
 function showQuestion() {
 
@@ -67,10 +72,10 @@ function showQuestion() {
 				</label>
 			</li>`;
 
-			const answerHTML = questionTemplate.replace('%answer%', answerText).replace('%number%', answerNumber);
+		const answerHTML = questionTemplate.replace('%answer%', answerText).replace('%number%', answerNumber);
 
-			listContainer.innerHTML += answerHTML;
-			answerNumber++;
+		listContainer.innerHTML += answerHTML;
+		answerNumber++;
 	}
 }
 
@@ -82,8 +87,8 @@ function checkAnswer() {
 
 	// Если ответ не выбран - ничего не делаем, выходим из функции
 	if (!checkedRadio) {
-			submitBtn.blur();
-			return;
+		submitBtn.blur();
+		return;
 	}
 
 	// Узнаём номер ответа пользоваеля
@@ -106,25 +111,25 @@ function checkAnswer() {
 
 }
 
-function showResults () {
+function showResults() {
 
 	const resultsTemplate = `
 					<h2 class="title">%title%</h2>
 					<h3 class="summary">%message%</h3>
 					<p class="result">%result%</p>
 				`;
-	
+
 	let title, message;
 	// Варианты заголовков и текста
 	if (score === questions.length) {
 		title = 'Мои поздравления! 🎉';
-		message = 'Ну ты молоток или кувалда, ответил на все вопросы правильно! 😎💪👍';
+		message = 'Вы молодец, ответили на все вопросы правильно! 😎💪👍';
 	} else if ((score * 100) / questions.length >= 50) {
-		title = 'Ну вроде не плохо! 😜';
-		message = 'У тебя больше половины правильных ответов 🧐👍👀';
+		title = 'Хороший результат! 😜';
+		message = 'У Вас больше половины правильных ответов 🧐👍👀';
 	} else {
-		title = 'Эх ты, давай ещё разок! 🤨💩😱👎';
-		message = 'Ёпти, это ж меньше половины правильных ответов 👅👶🙉';
+		title = 'Уверен, Вы можете лучше! 🤨😱';
+		message = 'У Вас меньше половины правильных ответов 👶';
 	}
 
 	// Результат
@@ -132,15 +137,15 @@ function showResults () {
 
 	// Финальный ответ, подставляем данные в шаблон
 	const finalMessage = resultsTemplate
-													.replace('%title%', title)
-													.replace('%message%', message)
-													.replace('%result%', result);
+		.replace('%title%', title)
+		.replace('%message%', message)
+		.replace('%result%', result);
 
 	headerContainer.innerHTML = finalMessage;
 
 	// Меняем кнопку на "Играть снова"
 	submitBtn.blur();
 	submitBtn.innerText = 'Начать заново';
-	submitBtn.onclick = () => history.go(); 
+	submitBtn.onclick = () => history.go();
 
 }
